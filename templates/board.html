@@ -18,11 +18,24 @@
     </div>
 </div>
 <div class="rack-container">
-    <button class="rack-button" id="reset-rack">Reset Rack</button>
+    <button class="rack-button" id="reset-rack"><i class="fas fa-undo"></i></button>
     <div class="rack" id="player-rack"></div>
-    <button class="rack-button" id="shuffle-rack">Shuffle Rack</button>
+    <button class="rack-button" id="shuffle-rack"><i class="fa-solid fa-shuffle"></i></button>
+</div>
+<div class="action-buttons">
+    <button class="action-button" id="options-button">Options</button>
+    <button class="action-button" id="pass-button">Pass</button>
+    <button class="action-button" id="exchange-button">Exchange</button>
+    <button class="action-button" id="play-button">Play</button>
 </div>
 
+<div id="popup-container">
+    <div id="popup-content">
+        <label for="blank-tile-letter">Enter letter for blank tile:</label>
+        <input type="text" id="blank-tile-letter" maxlength="1">
+        <button id="blank-tile-submit">Submit</button>
+    </div>
+</div>
 
 <script src="{{ url_for('static', filename='scripts/board.js') }}"></script>
 {% endblock %}

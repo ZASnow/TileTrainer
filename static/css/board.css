@@ -1,3 +1,26 @@
+/* Popup container */
+#popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dimming background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above all other elements */
+}
+
+/* Popup content */
+#popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
 .board-container {
     display: flex;
     justify-content: center;
@@ -12,10 +35,10 @@
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(15, 1fr);
     gap: 1px;
-    margin-bottom: 2em;
+    margin-bottom: 10px;
     place-items: center;
-    width: 650px; /* Ensure the board has a fixed width */
-    height: 650px; /* Ensure the board has a fixed height */
+    width: 650px;
+    height: 650px;
 }
 
 .board-cell {
@@ -23,7 +46,7 @@
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     font-size: 1.2em;
     position: relative;
     width: 100%;
@@ -38,8 +61,8 @@
 .tile {
     position: relative;
     border-radius: 4px;
-    width: 100%; /* Full width of the cell */
-    height: 100%; /* Full height of the cell */
+    width: 100%;
+    height: 100%;
     background-color: #f7dab0;
     border: 1px solid #e2c59b;
     color: #352F27;
@@ -52,44 +75,55 @@
     overflow: hidden;
 }
 
+.newly-placed {
+    opacity: 85%
+}
+
 .tile-points {
     position: absolute;
     bottom: 2px;
     right: 2px;
-    font-size: 0.6rem; /* Adjust font-size as needed */
+    font-size: 0.6rem;
     color: #634e33;
-    pointer-events: none; /* Ensure the points are not draggable */
+    pointer-events: none;
 }
 
 .rack .tile {
     width: 43px; /* Fixed width for tiles in the rack */
     height: 43px; /* Fixed height for tiles in the rack */
+    opacity: 100;
 }
 
 
 .rack-container {
     display: flex;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    gap: 10px; /* Add some space between the buttons and the rack */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .rack-button {
-    padding: 5px 10px;
-    background-color: #007bff;
+    width: 43px; /* Same width as tiles */
+    height: 43px; /* Same height as tiles */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5e6fcc;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50%;
     cursor: pointer;
-    white-space: nowrap; /* Ensure the button doesn't expand unnecessarily */
+}
+
+.rack-button i {
+    font-size: 1.5rem;
 }
 
 .rack {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
     padding: 10px;
-    width: 400px; /* Fixed width for the rack */
+    width: 400px;
     justify-content: center;
     align-items: center;
 }
@@ -125,12 +159,12 @@
     position: absolute;
     font-size: 1.25em;
     color: #cf4c45;
-    pointer-events: none;  /* Ensure the icon does not interfere with drag and drop */
+    pointer-events: none;
 }
 
-.star.tile-placed i {
-    display: none; /* Hide the star icon when a tile is placed */
-}
+/* .star.tile-placed i {
+    display: none;
+} */
 
 .sidebar {
     position: absolute;
@@ -150,4 +184,37 @@
 
 .sidebar .tile-bag {
     margin-top: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add space between buttons */
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.action-button {
+    width: 90px; /* Ensure buttons are square */
+    height: 40px; /* Ensure buttons are square */
+    /* background-color: #007bff; */
+    color: #5e6fcc;
+    border: 2px solid #5e6fcc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem; /* Adjust font size as needed */
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pass-button {
+    width: 70px;
+}
+
+#play-button {
+    width: 70px;
+    background-color: #5e6fcc;
+    color: white;
 }
