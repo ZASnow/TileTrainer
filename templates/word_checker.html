@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/word_checker.css') }}">
+
+  <div class="container">
+    <h2>Check Word Validity</h2>
+    <form id="word-check-form">
+      <label for="word">Enter a word:</label>
+      <input type="text" id="word" name="word">
+      <button type="submit">Check</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+<script src="{{ url_for('static', filename='scripts/word_checker.js') }}"></script>
+
+{% endblock %}

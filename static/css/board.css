@@ -1,0 +1,153 @@
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2em;
+    position: relative;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 1px;
+    margin-bottom: 2em;
+    place-items: center;
+    width: 650px; /* Ensure the board has a fixed width */
+    height: 650px; /* Ensure the board has a fixed height */
+}
+
+.board-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.tiles {
+    display: flex;
+    gap: 10px;
+}
+
+.tile {
+    position: relative;
+    border-radius: 4px;
+    width: 100%; /* Full width of the cell */
+    height: 100%; /* Full height of the cell */
+    background-color: #f7dab0;
+    border: 1px solid #e2c59b;
+    color: #352F27;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+}
+
+.tile-points {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.6rem; /* Adjust font-size as needed */
+    color: #634e33;
+    pointer-events: none; /* Ensure the points are not draggable */
+}
+
+.rack .tile {
+    width: 43px; /* Fixed width for tiles in the rack */
+    height: 43px; /* Fixed height for tiles in the rack */
+}
+
+
+.rack-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Add some space between the buttons and the rack */
+}
+
+.rack-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap; /* Ensure the button doesn't expand unnecessarily */
+}
+
+.rack {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 400px; /* Fixed width for the rack */
+    justify-content: center;
+    align-items: center;
+}
+
+.tile.dragging {
+    opacity: 0;
+}
+
+.triple-word {
+    background-color: #cf4c45;
+}
+
+.double-word {
+    background-color: #ffb3b3;
+}
+
+.triple-letter {
+    background-color: #5e6fcc;
+}
+
+.double-letter {
+    background-color: #c3d9ff;
+}
+
+.star {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.star i {
+    position: absolute;
+    font-size: 1.25em;
+    color: #cf4c45;
+    pointer-events: none;  /* Ensure the icon does not interfere with drag and drop */
+}
+
+.star.tile-placed i {
+    display: none; /* Hide the star icon when a tile is placed */
+}
+
+.sidebar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 300px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.sidebar .tile-bag {
+    margin-top: 10px;
+}

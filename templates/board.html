@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+
+<div class="board-container">
+    <div class="board" id="board"></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="sidebar">
+        <h2>Game Info</h2>
+        <div id="turn-info">Turn: 1</div>
+        <div id="player-moves">Player Moves: 0</div>
+        <div id="opponent-moves">Opponent Moves: 0</div>
+        <div class="tile-bag">
+            <h3>Tiles in Bag: <span id="tiles-left">{{ tile_bag_length }}</span></h3>
+            <div id="bag-contents"></div>
+        </div>
+    </div>
+</div>
+<div class="rack-container">
+    <button class="rack-button" id="reset-rack">Reset Rack</button>
+    <div class="rack" id="player-rack"></div>
+    <button class="rack-button" id="shuffle-rack">Shuffle Rack</button>
+</div>
+
+
+<script src="{{ url_for('static', filename='scripts/board.js') }}"></script>
+{% endblock %}

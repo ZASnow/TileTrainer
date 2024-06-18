@@ -1,0 +1,106 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, sans-serif;
+  }
+  
+  header, footer {
+    background-color: #f8f9fa;
+    padding: 1em;
+    text-align: center;
+  }
+  
+  .container {
+    margin: 2em auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #343a40; */
+    padding: 0.5em 1em;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 60px;
+    margin-right: 10px;
+  }
+  
+  .logo h1 {
+    color: rgb(53,47,39);
+    margin: 0;
+    font-size: 2em;
+  }
+  
+  .nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-menu li {
+    position: relative;
+    margin: 0 1em;
+  }
+  
+  .nav-menu a {
+    color: rgb(53,47,39);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.25em;
+  }
+  
+  .nav-menu a:hover {
+    text-decoration: underline;
+  }
+  
+  .nav-buttons .btn {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+    border-radius: 0.25em;
+    font-weight: bold;
+  }
+  
+  .nav-buttons .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .nav-buttons .btn:focus {
+    outline: none;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #575757;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
