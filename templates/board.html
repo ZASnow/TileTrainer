@@ -15,7 +15,12 @@
             <h3>Tiles in Bag: <span id="tiles-left">{{ tile_bag_length }}</span></h3>
             <div id="bag-contents"></div>
         </div>
-    </div>
+        <div class="scores">
+            <h3>Scores</h3>
+            <div id="player-score">Player: 0</div>
+            <div id="opponent-score">Opponent: 0</div>
+        </div>
+    </div>      
 </div>
 <div class="rack-container">
     <button class="rack-button" id="reset-rack"><i class="fas fa-undo"></i></button>
@@ -31,9 +36,12 @@
 
 <div id="popup-container">
     <div id="popup-content">
-        <label for="blank-tile-letter">Enter letter for blank tile:</label>
-        <input type="text" id="blank-tile-letter" maxlength="1">
-        <button id="blank-tile-submit">Submit</button>
+        <h2>Select your tile</h2>
+        <div id="letter-grid"></div>
+        <div id="input-container">
+            <input type="text" id="blank-tile-letter" maxlength="1" autocomplete="off"/>
+            <button id="blank-tile-submit">Submit</button>
+        </div>
     </div>
 </div>
 

@@ -38,6 +38,10 @@ def word_checker():
 def board():
     return render_template('board.html')
 
+@app.route('/wordsmith')
+def wordsmith():
+    return render_template('wordsmith.html')
+
 @app.route('/check_word', methods=['POST'])
 def check_word():
     data = request.get_json()
