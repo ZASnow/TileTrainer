@@ -130,5 +130,11 @@ def check_word():
 
     return jsonify({'validity': validity})
 
+@app.route('/get_move', methods=['POST'])
+def get_move():
+    board_state = request.get_json()  # Get JSON data sent from the front-end
+    print("Received board state:", board_state)  # Optionally print or log the board state
+    return jsonify({"message": "Board state received successfully!"}), 200
+
 if __name__ == '__main__':
     app.run(debug=True, port=5200)

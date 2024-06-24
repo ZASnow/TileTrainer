@@ -20,6 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedCell = null;
     let arrowDirection = null;
 
+    function getBoardState() {
+        const boardState = [];
+        for (let i = 0; i < 15; i++) {
+            const row = [];
+            for (let j = 0; j < 15; j++) {
+                const cell = document.querySelector(`[data-row="${i}"][data-col="${j}"]`);
+                const tile = cell.querySelector('.tile');
+                if (tile) {
+                    const isOriginallyBlank = tile.classList.contains('blank-tile');
+                    let letter;
+                    // Check if the tile has a .letter span for blank tiles
+                    const letterSpan = tile.querySelector('.letter');
+                    if (letterSpan) {
+                        // If it's a blank tile with a letter span
+                        letter = letterSpan.textContent;
+                    } else {
+                        // Regular tile, get only the letter (excluding point value)
+                        letter = tile.textContent.trim().replace(/[0-9]/g, '');  // Removes any numbers from the tile text
+                    }
+                    // Decide on case based on whether it was originally a blank tile
+                    row.push(isOriginallyBlank ? letter.toLowerCase() : letter.toUpperCase());
+                } else {
+                    row.push('.'); // Use '.' to denote an empty cell
+                }
+            }
+            boardState.push(row.join(' ')); // Join the row into a string and push to the board state array
+        }
+        return boardState.join('\n'); // Join all rows to form the full board text
+    }      
+
     // Define special tile positions
     const specialTiles = {
         'triple-word': [
@@ -203,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="circle"></div>
                 <span class="letter">${tile.letter}</span>
                 <span class="tile-points">0</span>`;
-            newTile.classList.add('newly-placed', 'blank-tile'); // Add necessary classes
+            newTile.classList.add('newly-placed', 'blank-tile', 'originally-blank'); // Add necessary classes
         } else {
             newTile.innerHTML = `${tile.letter}<span class="tile-points">${tile.points}</span>`;
             newTile.classList.add('newly-placed'); // Add a class to flag the tile
@@ -743,6 +773,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 tile.removeEventListener('click', handleBlankTileClick);
             }
         });
+
+        // After move logic is executed, get the bot response:
+        getMove();
     });
     
     // Function to check if all tiles form a single continuous word
@@ -1038,4 +1071,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial sidebar update
     updateSidebar();
+
+    function getMove() {
+        const boardState = getBoardState();  // Call the function that gets the current board state
+        fetch('/get_move', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ board: boardState })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);  // Log the confirmation message from the server
+        })
+        .catch(error => console.error('Error submitting board state:', error));
+    }
 });
