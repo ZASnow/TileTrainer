@@ -3,7 +3,91 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/wordsmith.css') }}">
 
+<!-- Popup Container -->
+<div id="popup-container" class="popup-container">
+    <div class="popup-content">
+        <div class="popup-title">Wordsmith Settings</div>
 
+        <!-- Carousel navigation buttons -->
+        <div class="settings-navigation">
+            <button class="nav-button prev"><i class="fas fa-caret-left"></i></button>
+            <button class="nav-button next"><i class="fas fa-caret-right"></i></button>
+        </div>
+
+        <!-- Settings carousel (hidden by default, shown one at a time) -->
+        <div class="settings-carousel">
+            <!-- Slide 1: Classic Mode Settings -->
+            <div class="settings-slide active" id="classic-mode-settings">
+                <form id="settings-form">
+                    <div class="mode">Classic</div>
+                    <!-- Existing Classic Mode settings fields -->
+                    <div class="setting">
+                        <label for="dictionary">Dictionary:</label>
+                        <select id="dictionary" name="dictionary">
+                            <option value="nwl2023">NWL23</option>
+                            <option value="csw21">CSW21</option>
+                        </select>
+                    </div>
+                    <div class="setting">
+                        <label for="word-length">Word Length: <span id="word-length-value">7</span></label>
+                        <input type="range" id="word-length" name="word-length" min="2" max="15" value="7">
+                    </div>
+                    <div class="setting">
+                        <label for="blanks">Include Blanks:</label>
+                        <input type="checkbox" id="blanks" name="blanks">
+                    </div>
+                    <div class="setting">
+                        <label for="time-limit">Time Limit (minutes):</label>
+                        <input type="number" id="time-limit" name="time-limit" min="1" step="1" placeholder="Optional">
+                    </div>
+                    <button type="submit" id="start-judge">Start</button>
+                </form>
+            </div>
+            <!-- Slide 2: Judge Mode Settings -->
+            <div class="settings-slide" id="judge-mode-settings">
+                <form id="judge-settings-form">
+                    <div class="mode">Judge</div>
+                    <div class="setting">
+                        <label for="judge-dictionary">Dictionary:</label>
+                        <select id="judge-dictionary" name="dictionary">
+                            <option value="nwl2023">NWL23</option>
+                            <option value="csw21">CSW21</option>
+                        </select>
+                    </div>
+                    <div class="setting">
+                        <label for="judge-word-length">Word Length: <span id="judge-word-length-value">7</span></label>
+                        <input type="range" id="judge-word-length" name="judge-word-length" min="2" max="15" value="7">
+                    </div>
+                    <div class="setting">
+                        <label for="judge-time-limit">Time Limit (minutes):</label>
+                        <input type="number" id="judge-time-limit" name="time-limit" min="1" step="1" placeholder="Optional">
+                    </div>
+                    <button type="submit" id="start-judge">Start</button>
+                </form>
+            </div>
+        </div>
+        <!-- Navigation dots for settings -->
+        <div class="settings-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+<!-- Wordsmith Game Interface -->
+<div id="game-container" class="game-container" style="display:none;">
+    <div id="result-message">&#160;</div>
+    <div id="anagram-counter" class="anagram-counter"></div>
+    <div id="tiles-container" class="tiles-container"></div>
+    <div id="interaction-bar">
+        <button id="hint-button" class="hint-button">Hint</button>
+        <button id="pass-button" class="pass-button">Pass</button>
+        <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="word-input" class="word-input" placeholder="Type your guess here..." maxlength="15">
+        <button id="submit-word" class="submit-word">Submit</button>
+    </div>    
+    <div id="typed-tiles-container" class="typed-tiles-container"></div>
+    <div id="guessed-words-container" class="guessed-words-container"></div>
+</div>
 
 <script src="{{ url_for('static', filename='scripts/wordsmith.js') }}"></script>
 {% endblock %}

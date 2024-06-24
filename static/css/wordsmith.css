@@ -1,0 +1,317 @@
+/* Popup Container */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.setting {
+    margin: 10px 0;
+}
+
+#start {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#start:hover {
+    background-color: #0056b3;
+}
+
+#start-judge {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#start-judge:hover {
+    background-color: #0056b3;
+}
+
+/* Game Container */
+.game-container {
+    background-color: #f8f9fa; /* Add background color */
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px; /* Optional: add rounded corners */
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+}
+
+.guessed-words-container {
+    margin-top: 20px;
+}
+
+.guessed-word {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 10px;
+    position: relative; /* Position relative for pseudo-element */
+    padding-bottom: 20px;
+}
+
+.guessed-word::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 35%; /* Adjust to center the line */
+    width: 30%; /* Set the width to 30% */
+    border-bottom: 1px solid #ccc; /* Add border-bottom for lines between words */
+}
+
+/* Tiles Container */
+.tiles-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tiles {
+    display: flex;
+    justify-content: center; /* Ensure tiles are centered and horizontal */
+    gap: 10px;
+}
+
+.word-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.judge-buttons {
+    display: flex;
+    justify-content: center; /* This will ensure buttons are spread evenly */
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: -40px;
+    width: 100%;
+}
+
+.real-button {
+    background-color: #29ce00;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.real-button:hover, .real-button.active {
+    background-color: rgb(19, 160, 0);
+}
+
+.fake-button {
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.fake-button:hover, .fake-button.active {
+    background-color: #b30000;
+}
+
+#typed-tiles-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.anagram-counter {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px; /* Add margin for spacing */
+}
+
+/* Word Input */
+.word-input {
+    width: 25%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submit-word {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hint-button, .pass-button {
+    background-color: white;
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-size: 16px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hint-button:hover, .pass-button:hover {
+    background-color: #eaeaea;
+}
+
+#interaction-bar {
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-word:hover {
+    background-color: #0056b3;
+}
+
+/* Successful submission */
+.tile {
+    border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    background-color: #f7dab0;
+    border: 1px solid #e2c59b;
+    color: #352F27;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: none;
+}
+
+.popup-content {
+    position: relative; /* Ensures that absolute positioning of children is relative to this container */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 420px; /* Adjust width if necessary */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: auto; /* Center the popup horizontally */
+}
+
+.settings-navigation {
+    position: absolute;
+    top: 50%;
+    left: 0; /* Align with the start of the popup */
+    right: 0; /* Align with the end of the popup */
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none; /* Prevents the div from blocking clicks */
+}
+
+.nav-button {
+    pointer-events: auto; /* Enable clicks on buttons */
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px; /* Ensure the buttons have enough clickable area */
+    height: 40px; /* Ensure the buttons have enough clickable area */
+}
+
+.prev {
+    position: absolute;
+    left: 10px; /* Adjust this value to move the left arrow inward */
+}
+
+.next {
+    position: absolute;
+    right: 10px; /* Adjust this value to move the right arrow inward */
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 32px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.settings-carousel {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px; /* Adjust spacing from navigation buttons */
+}
+
+.settings-slide {
+    display: none; /* Keeps slides hidden initially */
+    width: 100%; /* Ensures slides do not stretch beyond the popup */
+    transition: all 0.3s ease; /* If you decide to reintroduce transitions */
+}
+
+.settings-slide.active {
+    display: block; /* Only the active slide is shown */
+}
+
+.settings-dots {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #007bff;
+}
+
+.popup-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: -10px;
+}
+
+.mode {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+#result-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
