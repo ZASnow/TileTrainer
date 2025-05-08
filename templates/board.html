@@ -1,48 +1,112 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+{% extends 'base.html' %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/board.css') }}"
+/>
 
 <div class="board-container">
-    <div class="board" id="board"></div>
-    <div class="tiles" id="tiles"></div>
-    <div class="sidebar">
-        <h2>Game Info</h2>
-        <div id="turn-info">Turn: 1</div>
-        <div id="player-moves">Player Moves: 0</div>
-        <div id="opponent-moves">Opponent Moves: 0</div>
-        <div class="tile-bag">
-            <h3>Tiles in Bag: <span id="tiles-left">{{ tile_bag_length }}</span></h3>
-            <div id="bag-contents"></div>
+  <div class="board" id="board"></div>
+  <div class="tiles" id="tiles"></div>
+  <!-- Updated sidebar structure to match the reference design -->
+  <div class="sidebar">
+    <h2>Turn <span id="current-turn">1</span></h2>
+
+    <!-- Game move log section -->
+    <div class="game-log" id="game-log">
+      <!-- Move entries will be populated here dynamically -->
+    </div>
+
+    <!-- Tile bag information -->
+    <div class="tile-bag">
+      <h3>Tiles in Bag: <span id="tiles-left">27</span></h3>
+      <div id="bag-contents"></div>
+
+      <!-- Tile distribution (vowels/consonants counter) -->
+      <div class="tile-distribution">
+        <div class="vowels"><span id="vowel-count">16</span> VOWELS</div>
+        <div class="consonants">
+          <span id="consonant-count">17</span> CONSONANTS
         </div>
-        <div class="scores">
-            <h3>Scores</h3>
-            <div id="player-score">Player: 0</div>
-            <div id="opponent-score">Opponent: 0</div>
+      </div>
+    </div>
+
+    <!-- Player scores section -->
+    <div class="scores">
+      <div class="player-score-entry">
+        <div class="player-avatar">
+          <div
+            style="
+              width: 24px;
+              height: 24px;
+              background: #5e6fcc;
+              border-radius: 50%;
+            "
+          ></div>
         </div>
-    </div>      
+        <div class="player-name">Player</div>
+        <div class="player-score-value" id="player-score">0</div>
+      </div>
+
+      <div class="player-score-entry">
+        <div class="player-avatar">
+          <div
+            style="
+              width: 24px;
+              height: 24px;
+              background: #e74c3c;
+              border-radius: 50%;
+            "
+          ></div>
+        </div>
+        <div class="player-name">Bot</div>
+        <div class="player-score-value" id="opponent-score">0</div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="rack-container">
-    <button class="rack-button" id="reset-rack"><i class="fas fa-undo"></i></button>
-    <div class="rack" id="player-rack"></div>
-    <button class="rack-button" id="shuffle-rack"><i class="fa-solid fa-shuffle"></i></button>
+  <button class="rack-button" id="reset-rack">
+    <i class="fas fa-undo"></i>
+  </button>
+  <div class="rack" id="player-rack"></div>
+  <button class="rack-button" id="shuffle-rack">
+    <i class="fa-solid fa-shuffle"></i>
+  </button>
 </div>
 <div class="action-buttons">
-    <button class="action-button" id="options-button">Options</button>
-    <button class="action-button" id="pass-button">Pass</button>
-    <button class="action-button" id="exchange-button">Exchange</button>
-    <button class="action-button" id="play-button">Play</button>
+  <button class="action-button" id="options-button">Options</button>
+  <button class="action-button" id="pass-button">Pass</button>
+  <button class="action-button" id="exchange-button">Exchange</button>
+  <button class="action-button" id="play-button">Play</button>
 </div>
 
 <div id="popup-container">
-    <div id="popup-content">
-        <h2>Select your tile</h2>
-        <div id="letter-grid"></div>
-        <div id="input-container">
-            <input type="text" id="blank-tile-letter" maxlength="1" autocomplete="off"/>
-            <button id="blank-tile-submit">Submit</button>
-        </div>
+  <div id="popup-content">
+    <h2>Select your tile</h2>
+    <div id="letter-grid"></div>
+    <div id="input-container">
+      <input
+        type="text"
+        id="blank-tile-letter"
+        maxlength="1"
+        autocomplete="off"
+      />
+      <button id="blank-tile-submit">Submit</button>
     </div>
+  </div>
+</div>
+
+<div id="exchange-popup" style="display: none">
+  <div class="exchange-popup-content">
+    <h2>Exchange Tiles</h2>
+    <p>Select tiles to exchange. You can exchange up to 7 tiles.</p>
+    <div id="exchange-rack"></div>
+    <div class="exchange-buttons">
+      <button id="exchange-confirm">Exchange</button>
+      <button id="exchange-cancel">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <script src="{{ url_for('static', filename='scripts/board.js') }}"></script>

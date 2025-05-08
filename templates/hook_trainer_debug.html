@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .debug-container {
+        width: 80%;
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+    
+    h1, h2 {
+        color: #333;
+    }
+    
+    .debug-section {
+        margin-bottom: 30px;
+    }
+    
+    .debug-option {
+        margin: 15px 0;
+    }
+    
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    .result-container {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    
+    .error {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    
+    .success {
+        color: #28a745;
+    }
+    
+    pre {
+        background-color: #f1f1f1;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+</style>
+
+<div class="debug-container">
+    <h1>Hook Trainer Debug</h1>
+    
+    <div class="debug-section">
+        <h2>Check Hook Data Files</h2>
+        <div class="debug-option">
+            <button id="check-nwl">Check NWL2023 Hooks</button>
+            <button id="check-csw">Check CSW21 Hooks</button>
+        </div>
+        <div id="file-result" class="result-container" style="display: none;"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Test Hook Data Retrieval</h2>
+        <div class="debug-option">
+            <label for="test-dictionary">Dictionary:</label>
+            <select id="test-dictionary">
+                <option value="nwl2023">NWL23</option>
+                <option value="csw21">CSW21</option>
+            </select>
+        </div>
+        <div class="debug-option">
+            <label for="test-word-length">Word Length:</label>
+            <input type="number" id="test-word-length" min="2" max="15" value="3">
+        </div>
+        <div class="debug-option">
+            <label for="test-hook-type">Hook Type:</label>
+            <select id="test-hook-type">
+                <option value="both">Both</option>
+                <option value="front">Front Only</option>
+                <option value="back">Back Only</option>
+            </select>
+        </div>
+        <div class="debug-option">
+            <label for="test-min-hooks">Minimum Hooks:</label>
+            <input type="number" id="test-min-hooks" min="1" max="10" value="1">
+        </div>
+        <button id="test-retrieval">Test Hook Retrieval</button>
+        <div id="retrieval-result" class="result-container" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Check for hook data files
+    document.getElementById('check-nwl').addEventListener('click', () => {
+        checkHookFile('nwl2023');
+    });
+    
+    document.getElementById('check-csw').addEventListener('click', () => {
+        checkHookFile('csw21');
+    });
+    
+    // Test hook data retrieval
+    document.getElementById('test-retrieval').addEventListener('click', () => {
+        testHookRetrieval();
+    });
+    
+    function checkHookFile(dictionary) {
+        const resultContainer = document.getElementById('file-result');
+        resultContainer.innerHTML = 'Loading...';
+        resultContainer.style.display = 'block';
+        
+        fetch(`/hook_trainer/debug?dictionary=${dictionary}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'error') {
+                    resultContainer.innerHTML = `
+                        <div class="error">
+                            <p>Error: ${data.error}</p>
+                            <p>Available files in static/data/:</p>
+                            <ul>
+                                ${data.available_files ? data.available_files.map(file => `<li>${file}</li>`).join('') : 'No files found'}
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    resultContainer.innerHTML = `
+                        <div class="success">
+                            <p>Successfully loaded ${data.file}</p>
+                            <p>Total words in file: ${data.total_words}</p>
+                            <p>Sample data structure:</p>
+                            <pre>${JSON.stringify(data.sample_data, null, 2)}</pre>
+                            <p>Hook types available: ${data.hook_types ? data.hook_types.join(', ') : 'None'}</p>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                resultContainer.innerHTML = `
+                    <div class="error">
+                        <p>Error connecting to server: ${error.message}</p>
+                    </div>
+                `;
+            });
+    }
+    
+    function testHookRetrieval() {
+        const resultContainer = document.getElementById('retrieval-result');
+        resultContainer.innerHTML = 'Loading...';
+        resultContainer.style.display = 'block';
+        
+        const dictionary = document.getElementById('test-dictionary').value;
+        const wordLength = document.getElementById('test-word-length').value;
+        const hookType = document.getElementById('test-hook-type').value;
+        const minHooks = document.getElementById('test-min-hooks').value;
+        
+        const params = new URLSearchParams({
+            dictionary,
+            word_length: wordLength,
+            hook_type: hookType,
+            min_hooks: minHooks
+        });
+        
+        fetch(`/hook_trainer/get_hooks?${params}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    resultContainer.innerHTML = `
+                        <div class="error">
+                            <p>Error: ${data.error}</p>
+                        </div>
+                    `;
+                } else {
+                    resultContainer.innerHTML = `
+                        <div class="success">
+                            <p>Successfully retrieved ${data.count} words</p>
+                            <p>Sample of retrieved words:</p>
+                            <pre>${JSON.stringify(data.words.slice(0, 3), null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                resultContainer.innerHTML = `
+                    <div class="error">
+                        <p>Error connecting to server: ${error.message}</p>
+                    </div>
+                `;
+            });
+    }
+});
+</script>
+{% endblock %}

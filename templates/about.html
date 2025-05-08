@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+
+<div class="about-container">
+<header>
+  <h1>About TileTrainer</h1>
+  <p>Your ultimate resource for improving your Scrabble skills</p>
+</header>
+
+<main>
+  <section>
+    <h2>Our Mission</h2>
+    <p>
+      TileTrainer was created with one goal in mind: to provide
+      serious Scrabble players with all the tools they need to elevate their
+      game in one convenient location. Whether you're preparing for tournament
+      play or simply want to dominate your family game nights, this comprehensive
+      suite of training tools is designed to sharpen every aspect of your
+      Scrabble strategy.
+    </p>
+    <p>
+      We believe that consistent practice with the right tools can transform an
+      average player into a formidable opponent. That's why we've assembled the
+      most effective training methods used by competitive players and made them
+      accessible to everyone.
+    </p>
+  </section>
+
+  <section class="tool-section">
+    <h2>Our Training Tools</h2>
+    <p>
+      We've developed a comprehensive set of tools that target different aspects
+      of Scrabble mastery:
+    </p>
+
+    <div class="tool-list">
+      <div class="tool-card">
+        <h3>Anagram Trainer</h3>
+        <p>
+          Improve your ability to see all possible word combinations from a
+          given set of letters. This essential skill helps you maximize points
+          on every turn.
+        </p>
+      </div>
+
+      <div class="tool-card">
+        <h3>Bingo Detector</h3>
+        <p>
+          Train your eye to quickly identify whether a rack of letters contains
+          a valid 7-letter word (a "bingo"), which earns a valuable 50-point
+          bonus in play.
+        </p>
+      </div>
+
+      <div class="tool-card">
+        <h3>Word Validity Checker</h3>
+        <p>
+          Instantly verify if a word is playable according to the official
+          Scrabble dictionary, helping you expand your vocabulary of legal
+          words.
+        </p>
+      </div>
+
+      <div class="tool-card">
+        <h3>Anagram Solver</h3>
+        <p>
+          Discover all possible word combinations from any set of letters.
+          Perfect for study sessions and discovering words you might have missed
+          during games.
+        </p>
+      </div>
+
+      <!-- Space for future tools -->
+    </div>
+  </section>
+
+  <section>
+    <h2>Who We Are</h2>
+    <p>
+      Scrabble Training Hub was developed by passionate Scrabble enthusiasts who
+      wanted to create the resource we wished existed when we were improving our
+      own games. Our team combines expertise in competitive Scrabble play with
+      web development skills to build tools that are both effective and
+      user-friendly.
+    </p>
+    <p>
+      We're constantly working to expand our training suite based on player
+      feedback and the latest strategies used by top competitors.
+    </p>
+  </section>
+
+  <section>
+    <h2>Get Started</h2>
+    <p>
+      Ready to take your Scrabble skills to the next level? Head back to our
+      <a href="/">homepage</a> and start training with our tools. We recommend
+      beginning with the Anagram Trainer to develop your ability to spot word
+      possibilities quickly.
+    </p>
+    <p>
+      For consistent improvement, try to practice for at least 15 minutes daily.
+      Remember that even the best Scrabble champions had to start somewhere!
+    </p>
+    <p class="highlight">
+      Have suggestions for new training tools or improvements to our existing
+      ones? We'd love to hear from you! 
+      <a href="mailto:zachary.snow@twc.com"
+        >Contact me.</a
+      >
+    </p>
+  </section>
+</main>
+</div>
+
+{% endblock %}

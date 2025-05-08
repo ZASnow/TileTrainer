@@ -1,243 +1,242 @@
 /* Popup container */
 #popup-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dimming background */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it appears above all other elements */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimming background */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above all other elements */
 }
 
 /* Popup content */
 #popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
 }
 
 #letter-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 5px;
-    margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 #popup-content .h2 {
-    font-size: 12px;
-    font-weight: normal;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .letter-tile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    background-color: #f7dab0;
-    border: 1px solid #e2c59b;
-    color: #352F27;
-    border-radius: 2px;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #f7dab0;
+  border: 1px solid #e2c59b;
+  color: #352f27;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 #input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Increase the gap for better spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Increase the gap for better spacing */
 }
 
 #blank-tile-letter {
-    width: 40px; /* Slightly increase width for better usability */
-    height: 30px;
-    text-align: center;
-    padding: 0 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    outline: none; /* Remove the default outline */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+  width: 40px; /* Slightly increase width for better usability */
+  height: 30px;
+  text-align: center;
+  padding: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  outline: none; /* Remove the default outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
 #blank-tile-letter:focus {
-    border-color: #5e6fcc; /* Change border color on focus */
-    box-shadow: 0 0 8px rgba(94, 111, 204, 0.5); /* Add shadow on focus */
+  border-color: #5e6fcc; /* Change border color on focus */
+  box-shadow: 0 0 8px rgba(94, 111, 204, 0.5); /* Add shadow on focus */
 }
 
 #blank-tile-submit {
-    height: 30px;
-    padding: 0 15px; /* Add padding for a more substantial button */
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5e6fcc;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+  height: 30px;
+  padding: 0 15px; /* Add padding for a more substantial button */
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5e6fcc;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
 #blank-tile-submit:hover {
-    background-color: #4953a6; /* Darken the button color on hover */
+  background-color: #4953a6; /* Darken the button color on hover */
 }
 
 #blank-tile-submit:active {
-    background-color: #3a428c; /* Further darken the button color on click */
+  background-color: #3a428c; /* Further darken the button color on click */
 }
 
 #blank-tile-submit:focus {
-    outline: none; /* Remove the default outline */
-    box-shadow: 0 0 8px rgba(94, 111, 204, 0.5); /* Add shadow on focus */
+  outline: none; /* Remove the default outline */
+  box-shadow: 0 0 8px rgba(94, 111, 204, 0.5); /* Add shadow on focus */
 }
 
 .board-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 2em;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2em;
+  position: relative;
 }
 
 .board {
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(15, 1fr);
-    gap: 1px;
-    margin-bottom: 10px;
-    place-items: center;
-    width: 650px;
-    height: 650px;
-    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.5); /* Add this line */
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  gap: 1px;
+  margin-bottom: 10px;
+  place-items: center;
+  width: 650px;
+  height: 650px;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.5); /* Add this line */
 }
 
 .board-cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc;
-    font-size: 1.2em;
-    position: relative;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  font-size: 1.2em;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .tiles {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .tile {
-    position: relative;
-    border-radius: 4px;
-    width: 100%;
-    height: 100%;
-    background-color: #f7dab0;
-    border: 1px solid #e2c59b;
-    color: #352F27;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    user-select: none;
-    overflow: hidden;
+  position: relative;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: #f7dab0;
+  border: 1px solid #e2c59b;
+  color: #352f27;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
 }
 
 .newly-placed {
-    opacity: 85%
+  opacity: 85%;
 }
 
 .tile-points {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    font-size: 0.6rem;
-    color: #634e33;
-    pointer-events: none;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.6rem;
+  color: #634e33;
+  pointer-events: none;
 }
 
 .rack .tile {
-    width: 43px; /* Fixed width for tiles in the rack */
-    height: 43px; /* Fixed height for tiles in the rack */
-    opacity: 100;
+  width: 43px; /* Fixed width for tiles in the rack */
+  height: 43px; /* Fixed height for tiles in the rack */
+  opacity: 100;
 }
 
-
 .rack-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .rack-button {
-    width: 43px; /* Same width as tiles */
-    height: 43px; /* Same height as tiles */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #5e6fcc;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+  width: 43px; /* Same width as tiles */
+  height: 43px; /* Same height as tiles */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5e6fcc;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .rack-button i {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .rack {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    width: 400px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  width: 400px;
+  justify-content: center;
+  align-items: center;
 }
 
 .tile.dragging {
-    opacity: 0;
+  opacity: 0;
 }
 
 .triple-word {
-    background-color: #cf4c45;
+  background-color: #cf4c45;
 }
 
 .double-word {
-    background-color: #ffb3b3;
+  background-color: #ffb3b3;
 }
 
 .triple-letter {
-    background-color: #5e6fcc;
+  background-color: #5e6fcc;
 }
 
 .double-letter {
-    background-color: #c3d9ff;
+  background-color: #c3d9ff;
 }
 
 .star {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .star i {
-    position: absolute;
-    font-size: 1.25em;
-    color: #cf4c45;
-    pointer-events: none;
+  position: absolute;
+  font-size: 1.25em;
+  color: #cf4c45;
+  pointer-events: none;
 }
 
 /* .star.tile-placed i {
@@ -245,153 +244,852 @@
 } */
 
 .sidebar {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 300px;
-    background-color: #f8f9fa;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar h2 {
-    font-size: 1.2em;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #f8f9fa;
+  font-weight: bold;
 }
 
 .sidebar h3 {
-    font-size: 1em;
+  font-size: 14px;
+  margin: 0;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+  color: #333;
 }
 
+/* Tile Bag Styles */
 .tile-bag {
-    margin-top: 10px;
+  padding: 8px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.tile-bag h3 {
+  padding: 5px 0;
+  margin: 0 0 5px 0;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #555;
 }
 
 #bag-contents {
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* Ensure spaces are rendered correctly */
-    word-wrap: break-word;
+  font-family: "Jetbrains Mono", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+  white-space: pre-wrap;
+  padding: 5px 0;
+  word-wrap: break-word;
 }
 
 .action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Add space between buttons */
-    margin-top: 10px;
-    margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Add space between buttons */
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 .action-button {
-    width: 90px; /* Ensure buttons are square */
-    height: 40px; /* Ensure buttons are square */
-    background-color: white;
-    color: #5e6fcc;
-    border: 2px solid #5e6fcc;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem; /* Adjust font size as needed */
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90px; /* Ensure buttons are square */
+  height: 40px; /* Ensure buttons are square */
+  background-color: white;
+  color: #5e6fcc;
+  border: 2px solid #5e6fcc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem; /* Adjust font size as needed */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #pass-button {
-    width: 70px;
+  width: 70px;
 }
 
 #play-button {
-    width: 70px;
-    background-color: #5e6fcc;
-    color: white;
+  width: 70px;
+  background-color: #5e6fcc;
+  color: white;
 }
 
-#options-button:hover, #pass-button:hover, #exchange-button:hover {
-    color: #4453ac;
-    border: 2px solid #4453ac;
-    background-color: rgb(236, 236, 236);
+#options-button:hover,
+#pass-button:hover,
+#exchange-button:hover {
+  color: #4453ac;
+  border: 2px solid #4453ac;
+  background-color: rgb(236, 236, 236);
 }
 
 #play-button:hover {
-    color: rgb(236, 236, 236);
-    border: 2px solid #4453ac;
-    background-color: #4453ac;
+  color: rgb(236, 236, 236);
+  border: 2px solid #4453ac;
+  background-color: #4453ac;
 }
 
 .board-cell {
-    position: relative; /* Ensure the overlay can be positioned absolutely */
+  position: relative; /* Ensure the overlay can be positioned absolutely */
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 255, 0, 0.3); /* Translucent green */
-    pointer-events: none; /* Ensure the overlay doesn't block interactions */
-    z-index: 1; /* Ensure it appears above other content in the cell */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 255, 0, 0.3); /* Translucent green */
+  pointer-events: none; /* Ensure the overlay doesn't block interactions */
+  z-index: 1; /* Ensure it appears above other content in the cell */
 }
 
 .arrow-down::before,
 .arrow-right::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    z-index: 2; /* Ensure the arrows appear above the overlay */
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  z-index: 2; /* Ensure the arrows appear above the overlay */
 }
 
 .arrow-down::before {
-    border-width: 10px 10px 0 10px;
-    border-color: #42e442 transparent transparent transparent;
-    top: -10px;
+  border-width: 10px 10px 0 10px;
+  border-color: #42e442 transparent transparent transparent;
+  top: -10px;
 }
 
 .arrow-right::before {
-    border-width: 10px 0 10px 10px;
-    border-color: transparent transparent transparent #42e442;
-    left: -10px;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #42e442;
+  left: -10px;
 }
 
 .score-bubble {
-    position: absolute;
-    background: #fffa;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 5px;
-    font-size: 14px;
-    pointer-events: none;
-    z-index: 10;
-    top: -30px; /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  background: #fffa;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 10;
+  top: -30px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .blank-tile {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 .blank-tile .circle {
-    display: inline-block;
-    width: 70%; /* Adjust this value to make the circle smaller */
-    height: 70%; /* Adjust this value to make the circle smaller */
-    border-radius: 50%;
-    background-color: #352F27;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the circle */
-    box-sizing: border-box;
+  display: inline-block;
+  width: 70%; /* Adjust this value to make the circle smaller */
+  height: 70%; /* Adjust this value to make the circle smaller */
+  border-radius: 50%;
+  background-color: #352f27;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the circle */
+  box-sizing: border-box;
 }
 
 .blank-tile .letter {
-    display: inline-block;
-    transform: rotate(-15deg);
-    position: relative;
-    z-index: 1;
-    color: #f7dab0;
-    font-size: 1.3rem;
+  display: inline-block;
+  transform: rotate(-15deg);
+  position: relative;
+  z-index: 1;
+  color: #f7dab0;
+  font-size: 1.3rem;
+}
+
+/* Add these styles to your existing board.css file */
+
+/* Animation for bot's tile placement */
+.bot-placed {
+  animation: place-tile 0.5s ease-out;
+  transform-origin: center;
+}
+
+@keyframes place-tile {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Bot message overlay styling */
+.bot-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 18px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bot-message.show {
+  opacity: 1;
+  top: 25%;
+}
+
+/* Highlight bot's tiles differently than player tiles */
+.bot-placed {
+  /* background-color: #f0f0f0; */
+  /* border: 2px solid #ccc; */
+}
+
+/* Flash effect when bot places tiles */
+@keyframes bot-tile-flash {
+  0% {
+    box-shadow: 0 0 5px 2px #4caf50;
+  }
+  50% {
+    box-shadow: 0 0 15px 4px #4caf50;
+  }
+  100% {
+    box-shadow: 0 0 5px 2px #4caf50;
+  }
+}
+
+.bot-placed.placed {
+  animation: bot-tile-flash 0.5s ease-out;
+}
+
+/* Exchange Popup Styles */
+#exchange-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.exchange-popup-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.exchange-popup-content h2 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.exchange-popup-content p {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
+}
+
+#exchange-rack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  min-height: 70px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+#exchange-rack .tile {
+  width: 50px;
+  height: 50px;
+  background-color: #f7dab0;
+  border: 1px solid #e2c59b;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #352f27;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+#exchange-rack .tile.selected {
+  background-color: #e2c59b;
+  border-color: #dbbe95;
+  transform: translateY(-6px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.exchange-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.exchange-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#exchange-confirm {
+  background-color: #27ae60;
+  color: white;
+}
+
+#exchange-confirm:hover {
+  background-color: #219653;
+}
+
+#exchange-cancel {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#exchange-cancel:hover {
+  background-color: #c0392b;
+}
+
+#exchange-confirm:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Additional styles for tile exchange functionality */
+
+/* Make selected tiles more obvious */
+/* #exchange-rack .tile.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+} */
+
+/* Add hover effect to tiles in exchange rack */
+#exchange-rack .tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* Styles for tile counts in exchange popup */
+.exchange-info {
+  text-align: center;
+  margin-top: 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+/* Style for warning when not enough tiles */
+.exchange-warning {
+  color: #e74c3c;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+/* Animation for the exchange popup */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exchange-popup-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Game End Dialog Styles */
+#game-end-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+#game-results-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.dialog-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-message {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dialog-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.end-game-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.end-game-button:hover {
+  background-color: #c0392b;
+}
+
+.continue-button {
+  background-color: #27ae60;
+  color: white;
+}
+
+.continue-button:hover {
+  background-color: #219653;
+}
+
+.results-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 80%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.results-message {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.score-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.score-column {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.score-column:first-child {
+  border-right: 1px solid #ddd;
+}
+
+.score-column h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.score-row.final {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.new-game-button {
+  display: block;
+  margin: 0 auto;
+  padding: 15px 30px;
+  background-color: #5e6fcc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.new-game-button:hover {
+  background-color: #4453ac;
+}
+
+.winning-score {
+  color: #27ae60;
+}
+
+.losing-score {
+  color: #e74c3c;
+}
+
+.tie-score {
+  color: #f39c12;
+}
+
+/* Game Move Log Styles */
+.game-log {
+  max-height: 400px;
+  overflow-y: auto;
+  border-bottom: 1px solid #eee;
+}
+
+.move-entry {
+  display: flex;
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.move-entry:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.move-entry:hover {
+  background-color: #f0f0f0;
+}
+
+.player-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.player-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.move-info {
+  flex-grow: 1;
+}
+
+.move-position {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.tiles-played {
+  color: #333;
+  font-family: "Jetbrains Mono", monospace;
+}
+
+.move-score {
+  text-align: right;
+  padding-left: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.score-before {
+  color: #666;
+  font-size: 12px;
+}
+
+.score-gain {
+  color: #4caf50;
+}
+
+.total-score {
+  color: #333;
+}
+
+/* Tile Distribution Display */
+.tile-distribution {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 14px;
+}
+
+.vowels,
+.consonants {
+  flex: 1;
+  padding: 5px 10px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.vowels {
+  background-color: #90caf9;
+  border-radius: 4px 0 0 4px;
+}
+
+.consonants {
+  background-color: #1976d2;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Player Scores Section */
+.scores {
+  padding: 8px 15px 12px;
+}
+
+.scores h3 {
+  padding: 5px 0;
+  margin: 0 0 10px 0;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #555;
+}
+
+.player-score-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.player-score-entry img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.player-name {
+  flex-grow: 1;
+  font-weight: bold;
+  color: #333;
+}
+
+.player-score-value {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1976d2;
+}
+
+/* Turn Info */
+#turn-info,
+#player-moves,
+#opponent-moves {
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+#turn-info {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Controls for sidebar */
+.sidebar-controls {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+.control-button {
+  padding: 5px 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.control-button:hover {
+  background-color: #1565c0;
+}
+
+/* Tile layout in bag display */
+.tile-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.tile-count {
+  font-size: 12px;
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+/* Individual game character tile display */
+.game-tile {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  background-color: #f7dab0;
+  border: 1px solid #e2c59b;
+  color: #352f27;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+}
+
+.game-tile.blank {
+  background-color: #352f27;
+  color: #f7dab0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add a confetti animation for the winner */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1999;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f39c12;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
 }

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/anagram_solver.css') }}">
+
+<div class="anagram-container">
+    <h1>Anagram Solver</h1>
+    <p class="description">Enter your letters below (use ? for blank tiles)</p>
+    
+    <div class="search-container">
+        <div class="input-group">
+            <input type="text" id="letter-input" placeholder="Enter letters (? for blanks)" maxlength="15">
+            <button id="solve-button">Solve</button>
+            <button id="clear-button">Clear</button>
+        </div>
+        
+        <div class="dictionary-select">
+            <span>Dictionary:</span>
+            <div class="radio-group">
+                <input type="radio" id="dict-both" name="dictionary" value="both" checked>
+                <label for="dict-both">Both</label>
+                
+                <input type="radio" id="dict-nwl" name="dictionary" value="nwl">
+                <label for="dict-nwl">NWL</label>
+                
+                <input type="radio" id="dict-collins" name="dictionary" value="collins">
+                <label for="dict-collins">Collins</label>
+            </div>
+        </div>
+    </div>
+    
+    <div id="loading-spinner" class="hidden">
+        <div class="spinner"></div>
+        <p>Finding anagrams...</p>
+    </div>
+    
+    <div class="results-container">
+        <div class="results-header">
+            <h2>Results <span id="result-count">(0)</span></h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="color-box both"></span>
+                    <span>In both dictionaries</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-box nwl-only"></span>
+                    <span>NWL only</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-box collins-only"></span>
+                    <span>Collins only</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="results-list"></div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/anagram_solver.js') }}"></script>
+{% endblock %}
