@@ -30,7 +30,7 @@ def extract_cross_words(board, move, dawg):
     main_word = move.word.upper()
     main_word_valid = dawg.is_word(main_word)
     
-    print(f"Main word: {main_word} - Valid: {main_word_valid}")
+    # print(f"Main word: {main_word} - Valid: {main_word_valid}")
     
     # Then check all cross-words
     for idx, ch in enumerate(word):
@@ -61,7 +61,7 @@ def extract_cross_words(board, move, dawg):
                 cross_word = top + ch.upper() + bottom
                 is_valid = dawg.is_word(cross_word)
                 cross_words.append((cross_word, is_valid))
-                print(f"Cross-word (vertical): {cross_word} - Valid: {is_valid}")
+                # print(f"Cross-word (vertical): {cross_word} - Valid: {is_valid}")
         
         else:  # Vertical move, check horizontal cross-words
             # Get the horizontal word formed by this tile
@@ -82,7 +82,7 @@ def extract_cross_words(board, move, dawg):
                 cross_word = left + ch.upper() + right
                 is_valid = dawg.is_word(cross_word)
                 cross_words.append((cross_word, is_valid))
-                print(f"Cross-word (horizontal): {cross_word} - Valid: {is_valid}")
+                # print(f"Cross-word (horizontal): {cross_word} - Valid: {is_valid}")
     
     return cross_words
 
@@ -125,7 +125,7 @@ def check_extended_main_word(board, move, dawg):
         if left_word or right_word:
             complete_word = left_word + word.upper() + right_word
             is_valid = dawg.is_word(complete_word)
-            print(f"Extended main word: {complete_word} - Valid: {is_valid}")
+            # print(f"Extended main word: {complete_word} - Valid: {is_valid}")
             return (True, complete_word, is_valid)
     
     # For a vertical move, check if there are adjacent tiles above or below
@@ -148,7 +148,7 @@ def check_extended_main_word(board, move, dawg):
         if top_word or bottom_word:
             complete_word = top_word + word.upper() + bottom_word
             is_valid = dawg.is_word(complete_word)
-            print(f"Extended main word: {complete_word} - Valid: {is_valid}")
+            # print(f"Extended main word: {complete_word} - Valid: {is_valid}")
             return (True, complete_word, is_valid)
     
     return (False, "", True)
@@ -166,19 +166,19 @@ def validate_cross_words(board, move, dawg):
     Returns:
         bool: True if all formed words are valid, False otherwise
     """
-    # Check the main word
-    main_word = move.word.upper()
-    main_word_valid = dawg.is_word(main_word)
-    
-    if not main_word_valid:
-        print(f"Invalid main word: {main_word}")
-        return False
-    
-    # Check extended main word (if any)
+    # Check extended main word FIRST (if any)
     has_extension, extended_word, ext_valid = check_extended_main_word(board, move, dawg)
     if has_extension and not ext_valid:
-        print(f"Invalid extended main word: {extended_word}")
+        # print(f"Invalid extended main word: {extended_word}")
         return False
+    
+    # Then check the main word if there's no extension
+    if not has_extension:
+        main_word = move.word.upper()
+        main_word_valid = dawg.is_word(main_word)
+        if not main_word_valid:
+            # print(f"Invalid main word: {main_word}")
+            return False
     
     # Extract and validate all cross-words
     cross_words = extract_cross_words(board, move, dawg)
@@ -186,10 +186,10 @@ def validate_cross_words(board, move, dawg):
     # Check if any cross-word is invalid
     for cross_word, is_valid in cross_words:
         if not is_valid:
-            print(f"Invalid cross-word: {cross_word}")
+            # print(f"Invalid cross-word: {cross_word}")
             return False
     
-    print(f"Move forms {len(cross_words)} valid cross-words")
+    # print(f"Move forms {len(cross_words)} valid cross-words")
     return True
 
 
@@ -220,5 +220,5 @@ def find_all_moves_with_validation(board, rack, dawg):
         for i, move in enumerate(invalid_moves[:5]):
             print(f"  Invalid move {i+1}: {move}")
     
-    valid_moves.sort(key=lambda m: m.score, reverse=True)
+    valid_moves.sort(key=lambda m: m.total_score, reverse=True)
     return valid_moves

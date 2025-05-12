@@ -66,6 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (isFirstMove) {
+      isFirstMove = false;
+    }
+
     // Create the exchange rack with the player's current tiles
     createExchangeRack();
 
@@ -202,14 +206,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (selectedCell === cell) {
       if (arrowDirection === null) {
         addOverlay(cell);
-        cell.classList.add("arrow-down");
-        arrowDirection = "down";
-      } else if (arrowDirection === "down") {
-        cell.classList.remove("arrow-down");
         cell.classList.add("arrow-right");
         arrowDirection = "right";
       } else if (arrowDirection === "right") {
         cell.classList.remove("arrow-right");
+        cell.classList.add("arrow-down");
+        arrowDirection = "down";
+      } else if (arrowDirection === "down") {
+        cell.classList.remove("arrow-down");
         const overlay = cell.querySelector(".overlay");
         if (overlay) {
           overlay.remove();
@@ -227,8 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       selectedCell = cell;
       addOverlay(cell);
-      cell.classList.add("arrow-down");
-      arrowDirection = "down";
+      cell.classList.add("arrow-right");
+      arrowDirection = "right";
     }
   }
 

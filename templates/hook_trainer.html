@@ -1,188 +1,284 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/hook_trainer.css') }}">
+{% extends 'base.html' %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/hook_trainer.css') }}"
+/>
 
 <!-- Popup Container -->
 <div id="popup-container" class="popup-container">
-    <div class="popup-content">
-        <div class="popup-title">Hook Trainer Settings</div>
+  <div class="popup-content">
+    <div class="popup-title">Hook Trainer Settings</div>
 
-        <!-- Carousel navigation buttons -->
-        <div class="settings-navigation">
-            <button class="nav-button prev"><i class="fas fa-caret-left"></i></button>
-            <button class="nav-button next"><i class="fas fa-caret-right"></i></button>
-        </div>
-
-        <!-- Settings carousel (hidden by default, shown one at a time) -->
-        <div class="settings-carousel">
-            <!-- Slide 1: Flashcard Mode Settings -->
-            <div class="settings-slide active" id="flashcard-mode-settings">
-                <form id="flashcard-settings-form">
-                    <div class="mode">Flashcard</div>
-                    <div class="setting">
-                        <label for="flashcard-dictionary">Dictionary:</label>
-                        <select id="flashcard-dictionary" name="dictionary">
-                            <option value="nwl2023">NWL23</option>
-                            <option value="csw21">CSW21</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        <label for="flashcard-word-length">Word Length: <span id="flashcard-word-length-value">3</span></label>
-                        <input type="range" id="flashcard-word-length" name="word-length" min="2" max="8" value="3">
-                    </div>
-                    <div class="setting">
-                        <label for="flashcard-hook-type">Hook Type:</label>
-                        <select id="flashcard-hook-type" name="hook-type">
-                            <option value="both">Both Front & Back</option>
-                            <option value="front">Front Hooks Only</option>
-                            <option value="back">Back Hooks Only</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        <label for="flashcard-min-hooks">Minimum Hooks: <span id="flashcard-min-hooks-value">1</span></label>
-                        <input type="range" id="flashcard-min-hooks" name="min-hooks" min="0" max="5" value="1">
-                    </div>
-                    <div class="setting">
-                        <label for="flashcard-include-no-hooks">Include Words Without Hooks:</label>
-                        <input type="checkbox" id="flashcard-include-no-hooks" name="include-no-hooks">
-                    </div>
-                    <button type="submit" id="start-flashcard">Start</button>
-                </form>
-            </div>
-            <!-- Slide 2: Quiz Mode Settings -->
-            <div class="settings-slide" id="quiz-mode-settings">
-                <form id="quiz-settings-form">
-                    <div class="mode">Quiz</div>
-                    <div class="setting">
-                        <label for="quiz-dictionary">Dictionary:</label>
-                        <select id="quiz-dictionary" name="dictionary">
-                            <option value="nwl2023">NWL23</option>
-                            <option value="csw21">CSW21</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        <label for="quiz-word-length">Word Length: <span id="quiz-word-length-value">3</span></label>
-                        <input type="range" id="quiz-word-length" name="word-length" min="2" max="8" value="3">
-                    </div>
-                    <div class="setting">
-                        <label for="quiz-hook-type">Hook Type:</label>
-                        <select id="quiz-hook-type" name="hook-type">
-                            <option value="both">Both Front & Back</option>
-                            <option value="front">Front Hooks Only</option>
-                            <option value="back">Back Hooks Only</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        <label for="quiz-min-hooks">Minimum Hooks: <span id="quiz-min-hooks-value">1</span></label>
-                        <input type="range" id="quiz-min-hooks" name="min-hooks" min="1" max="5" value="1">
-                    </div>
-                    <div class="setting">
-                        <label for="quiz-include-no-hooks">Include Words Without Hooks:</label>
-                        <input type="checkbox" id="quiz-include-no-hooks" name="include-no-hooks">
-                    </div>
-                    <div class="setting">
-                        <label for="quiz-time-limit">Time Limit (seconds):</label>
-                        <input type="number" id="quiz-time-limit" name="time-limit" min="5" step="5" value="30">
-                    </div>
-                    <button type="submit" id="start-quiz">Start</button>
-                </form>
-            </div>
-            <!-- Slide 3: Study Mode Settings -->
-            <div class="settings-slide" id="study-mode-settings">
-                <form id="study-settings-form">
-                    <div class="mode">Study</div>
-                    <div class="setting">
-                        <label for="study-dictionary">Dictionary:</label>
-                        <select id="study-dictionary" name="dictionary">
-                            <option value="nwl2023">NWL23</option>
-                            <option value="csw21">CSW21</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        <label for="study-word-length">Word Length: <span id="study-word-length-value">3</span></label>
-                        <input type="range" id="study-word-length" name="word-length" min="2" max="8" value="3">
-                    </div>
-                    <div class="setting">
-                        <label for="study-min-hooks">Minimum Hooks: <span id="study-min-hooks-value">1</span></label>
-                        <input type="range" id="study-min-hooks" name="min-hooks" min="0" max="5" value="1">
-                    </div>
-                    <div class="setting">
-                        <label for="study-include-no-hooks">Include Words Without Hooks:</label>
-                        <input type="checkbox" id="study-include-no-hooks" name="include-no-hooks">
-                    </div>
-                    <button type="submit" id="start-study">Start</button>
-                </form>
-            </div>
-        </div>
-        <!-- Navigation dots for settings -->
-        <div class="settings-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
+    <!-- Carousel navigation buttons -->
+    <div class="settings-navigation">
+      <button class="nav-button prev"><i class="fas fa-caret-left"></i></button>
+      <button class="nav-button next">
+        <i class="fas fa-caret-right"></i>
+      </button>
     </div>
+
+    <!-- Settings carousel (hidden by default, shown one at a time) -->
+    <div class="settings-carousel">
+      <!-- Slide 1: Flashcard Mode Settings -->
+      <div class="settings-slide active" id="flashcard-mode-settings">
+        <form id="flashcard-settings-form">
+          <div class="mode">Flashcard</div>
+          <div class="setting">
+            <label for="flashcard-dictionary">Dictionary:</label>
+            <select id="flashcard-dictionary" name="dictionary">
+              <option value="nwl2023">NWL23</option>
+              <option value="csw21">CSW21</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="flashcard-word-length"
+              >Base Word Length:
+              <span id="flashcard-word-length-value">3</span></label
+            >
+            <input
+              type="range"
+              id="flashcard-word-length"
+              name="word-length"
+              min="2"
+              max="8"
+              value="3"
+            />
+          </div>
+          <div class="setting">
+            <label for="flashcard-hook-type">Hook Type:</label>
+            <select id="flashcard-hook-type" name="hook-type">
+              <option value="both">Both Front & Back</option>
+              <option value="front">Front Hooks Only</option>
+              <option value="back">Back Hooks Only</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="flashcard-min-hooks"
+              >Minimum Hooks:
+              <span id="flashcard-min-hooks-value">1</span></label
+            >
+            <input
+              type="range"
+              id="flashcard-min-hooks"
+              name="min-hooks"
+              min="0"
+              max="5"
+              value="1"
+            />
+          </div>
+          <button type="submit" id="start-flashcard">Start</button>
+        </form>
+      </div>
+      <!-- Slide 2: Quiz Mode Settings -->
+      <div class="settings-slide" id="quiz-mode-settings">
+        <form id="quiz-settings-form">
+          <div class="mode">Quiz</div>
+          <div class="setting">
+            <label for="quiz-dictionary">Dictionary:</label>
+            <select id="quiz-dictionary" name="dictionary">
+              <option value="nwl2023">NWL23</option>
+              <option value="csw21">CSW21</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="quiz-word-length"
+              >Base Word Length: <span id="quiz-word-length-value">3</span></label
+            >
+            <input
+              type="range"
+              id="quiz-word-length"
+              name="word-length"
+              min="2"
+              max="8"
+              value="3"
+            />
+          </div>
+          <div class="setting">
+            <label for="quiz-hook-type">Hook Type:</label>
+            <select id="quiz-hook-type" name="hook-type">
+              <option value="both">Both Front & Back</option>
+              <option value="front">Front Hooks Only</option>
+              <option value="back">Back Hooks Only</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="quiz-min-hooks"
+              >Minimum Hooks: <span id="quiz-min-hooks-value">1</span></label
+            >
+            <input
+              type="range"
+              id="quiz-min-hooks"
+              name="min-hooks"
+              min="0"
+              max="5"
+              value="1"
+            />
+          </div>
+          <div class="setting">
+            <label for="quiz-hard-mode">Hard Mode:</label>
+            <input type="checkbox" id="quiz-hard-mode" name="hard-mode" />
+            <!-- <span class="setting-description"
+              >(Hides hook counts and requires declaring "No more hooks")</span
+            > -->
+          </div>
+          <div class="setting">
+            <label for="quiz-include-no-hooks"
+              >Include Words Without Hooks:</label
+            >
+            <input
+              type="checkbox"
+              id="quiz-include-no-hooks"
+              name="include-no-hooks"
+            />
+          </div>
+          <div class="setting">
+            <label for="quiz-time-limit">Time Limit (seconds):</label>
+            <input
+              type="number"
+              id="quiz-time-limit"
+              name="time-limit"
+              min="5"
+              step="5"
+              value="30"
+            />
+          </div>
+          <button type="submit" id="start-quiz">Start</button>
+        </form>
+      </div>
+      <!-- Slide 3: Study Mode Settings -->
+      <div class="settings-slide" id="study-mode-settings">
+        <form id="study-settings-form">
+          <div class="mode">Study</div>
+          <div class="setting">
+            <label for="study-dictionary">Dictionary:</label>
+            <select id="study-dictionary" name="dictionary">
+              <option value="nwl2023">NWL23</option>
+              <option value="csw21">CSW21</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="study-word-length"
+              >Base Word Length: <span id="study-word-length-value">3</span></label
+            >
+            <input
+              type="range"
+              id="study-word-length"
+              name="word-length"
+              min="2"
+              max="8"
+              value="3"
+            />
+          </div>
+          <div class="setting">
+            <label for="study-min-hooks"
+              >Minimum Hooks: <span id="study-min-hooks-value">1</span></label
+            >
+            <input
+              type="range"
+              id="study-min-hooks"
+              name="min-hooks"
+              min="0"
+              max="5"
+              value="1"
+            />
+          </div>
+          <button type="submit" id="start-study">Start</button>
+        </form>
+      </div>
+    </div>
+    <!-- Navigation dots for settings -->
+    <div class="settings-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
 </div>
 
 <!-- Hook Trainer Interface -->
-<div id="trainer-container" class="trainer-container" style="display:none;">
-    <div id="result-message">&#160;</div>
-    <div id="mode-display" class="mode-display"></div>
-    
-    <!-- Stats Display -->
-    <div id="stats-container" class="stats-container">
-        <div id="timer" class="timer">Time: <span id="time-value">30</span>s</div>
-        <div id="score" class="score">Score: <span id="score-value">0</span></div>
+<div id="trainer-container" class="trainer-container" style="display: none">
+  <div id="result-message">&#160;</div>
+  <div id="mode-display" class="mode-display"></div>
+
+  <!-- Stats Display -->
+  <div id="stats-container" class="stats-container">
+    <div id="timer" class="timer">Time: <span id="time-value">30</span>s</div>
+    <div id="score" class="score">Score: <span id="score-value">0</span></div>
+  </div>
+
+  <!-- Flashcard/Quiz Area -->
+  <div id="card-container" class="card-container">
+    <div id="word-display" class="word-display"></div>
+    <div id="hooks-display" class="hooks-display">
+      <div id="front-hooks" class="hooks-section">
+        <div class="hooks-title">Front Hooks</div>
+        <div id="front-hooks-content" class="hooks-content"></div>
+      </div>
+      <div id="back-hooks" class="hooks-section">
+        <div class="hooks-title">Back Hooks</div>
+        <div id="back-hooks-content" class="hooks-content"></div>
+      </div>
     </div>
-    
-    <!-- Flashcard/Quiz Area -->
-    <div id="card-container" class="card-container">
-        <div id="word-display" class="word-display"></div>
-        <div id="hooks-display" class="hooks-display">
-            <div id="front-hooks" class="hooks-section">
-                <div class="hooks-title">Front Hooks</div>
-                <div id="front-hooks-content" class="hooks-content"></div>
-            </div>
-            <div id="back-hooks" class="hooks-section">
-                <div class="hooks-title">Back Hooks</div>
-                <div id="back-hooks-content" class="hooks-content"></div>
-            </div>
-        </div>
+  </div>
+
+  <!-- Quiz Input Area -->
+  <div
+    id="quiz-input-container"
+    class="quiz-input-container"
+    style="display: none"
+  >
+    <div class="hook-type-selector">
+      <label>
+        <input type="radio" name="hook-position" value="front" checked /> Front
+        Hook
+      </label>
+      <label>
+        <input type="radio" name="hook-position" value="back" /> Back Hook
+      </label>
     </div>
-    
-    <!-- Quiz Input Area -->
-    <div id="quiz-input-container" class="quiz-input-container" style="display:none;">
-        <div class="hook-type-selector">
-            <label>
-                <input type="radio" name="hook-position" value="front" checked> Front Hook
-            </label>
-            <label>
-                <input type="radio" name="hook-position" value="back"> Back Hook
-            </label>
-        </div>
-        <div class="input-submit-container">
-            <input type="text" id="hook-input" class="hook-input" placeholder="Type hook letter..." maxlength="1">
-            <button id="submit-hook" class="submit-hook">Submit</button>
-        </div>
-        <div id="hook-instructions" class="hook-instructions">Enter a single letter that can be added to the beginning or end of the word</div>
+    <div class="input-submit-container">
+      <input
+        type="text"
+        id="hook-input"
+        class="hook-input"
+        placeholder="Enter hook..."
+        maxlength="1"
+      />
+      <button id="submit-hook" class="submit-hook">Submit</button>
     </div>
-    
-    <!-- Navigation Controls -->
-    <div id="navigation-controls" class="navigation-controls">
-        <button id="prev-button" class="nav-button">Previous</button>
-        <button id="flip-button" class="flip-button">Reveal Hooks</button>
-        <button id="next-button" class="nav-button">Next</button>
-    </div>
-    
-    <!-- Study Mode List -->
-    <div id="study-list-container" class="study-list-container" style="display:none;">
-        <div id="study-list" class="study-list"></div>
-    </div>
-    
-    <!-- Return to Menu Button -->
-    <div class="menu-container">
-        <button id="menu-button" class="menu-button">Return to Menu</button>
-    </div>
+    <button
+      id="no-more-hooks-button"
+      class="no-more-hooks-button"
+      style="display: none"
+    >
+      No More Hooks
+    </button>
+    <!-- <div id="hook-instructions" class="hook-instructions">
+      Enter a single letter that can be added to the beginning or end of the
+      word
+    </div> -->
+  </div>
+
+  <!-- Navigation Controls -->
+  <div id="navigation-controls" class="navigation-controls">
+    <button id="prev-button" class="nav-button">Previous</button>
+    <button id="flip-button" class="flip-button">Reveal Hooks</button>
+    <button id="next-button" class="nav-button">Next</button>
+  </div>
+
+  <!-- Study Mode List -->
+  <div
+    id="study-list-container"
+    class="study-list-container"
+    style="display: none"
+  >
+    <div id="study-list" class="study-list"></div>
+  </div>
+
+  <!-- Return to Menu Button -->
+  <div class="menu-container">
+    <button id="menu-button" class="menu-button">Return to Menu</button>
+  </div>
 </div>
 
 <script src="{{ url_for('static', filename='scripts/hook_trainer.js') }}"></script>

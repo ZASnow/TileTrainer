@@ -52,6 +52,7 @@ def build_hook_dict(words: set[str]) -> dict[str, dict[str, list[str]]]:
             prefix_map[w[:i]].append(w)       #  base -> longer word(s)
             suffix_map[w[i:]].append(w)
 
+    # First populate hooks for any word that has them
     for base in words:
         # ── back hooks ───────────────────────────────────────────────
         for longer in prefix_map.get(base, []):          # longer starts with base
@@ -65,12 +66,17 @@ def build_hook_dict(words: set[str]) -> dict[str, dict[str, list[str]]]:
             if len(hook) == 1:                           # ← only single-letter
                 hooks[base]["front"].add(hook)
 
-    # sets -> sorted lists, drop words w/o hooks
+    # Now make sure ALL words are included (even those without hooks)
+    for word in words:
+        if word not in hooks:
+            hooks[word] = {"front": set(), "back": set()}
+    
+    # sets -> sorted lists, include ALL words
     return {
         w: {"front": sorted(h["front"]), "back": sorted(h["back"])}
-        for w, h in hooks.items() if h["front"] or h["back"]
+        for w, h in hooks.items()
     }
-
+    
 # ──────────────────────────────────────────────────────────────────────────
 # CLI entry-point
 # ──────────────────────────────────────────────────────────────────────────

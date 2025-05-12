@@ -9,6 +9,7 @@ from .dawg import Dawg
 from .board import Board
 from .generator import find_all_moves
 from .validation import find_all_moves_with_validation
+from .debug_utils import DebugUtils
 
 # Load dictionary at module import
 DICT_PATH = "static/data/NWL2023.txt"
@@ -39,6 +40,7 @@ def make_bot_move(
     """
     print("Making bot move...")
     board = Board.from_string(board_state)
+    DebugUtils.print_board(board)
     print(f"Board parsed, finding anchors...")
     
     # Print anchors for debugging
@@ -57,8 +59,8 @@ def make_bot_move(
     
     # Debug: check the moves
     print(f"Found {len(moves)} possible moves")
-    for i, move in enumerate(sorted(moves, key=lambda m: m.score, reverse=True)[:5]):
-        print(f"Move {i+1}: {move.word} at ({move.row},{move.col}) {move.direction} for {move.score} points")
+    for i, move in enumerate(sorted(moves, key=lambda m: m.total_score, reverse=True)[:5]):
+        print(f"Move {i+1}: {move.word} at ({move.row},{move.col}) {move.direction} for {move.total_score} points")
         # Verify move is valid
         if not DAWG.is_word(move.word.upper()):
             print(f"WARNING: Invalid word generated: {move.word}")
@@ -107,10 +109,12 @@ def make_bot_move(
             }
 
     # Sort by score and pick the best
-    valid_moves.sort(key=lambda m: m.score, reverse=True)
+    valid_moves.sort(key=lambda m: m.total_score, reverse=True)
     best = valid_moves[0]
-    
-    print(f"Selected best move: {best.word} at ({best.row},{best.col}) {best.direction} for {best.score} points")
+
+    # Debug output
+    print(f"Selected best move: {best.word} at ({best.row},{best.col}) {best.direction}")
+    print(f"Move score: {best.score}, Rack equity: {best.rack_equity:.2f}, Total: {best.total_score:.2f}")
 
     # ----- consume rack tiles used in best.word ------------------------
     used = Counter("" if ch.islower() else ch for ch in best.word)

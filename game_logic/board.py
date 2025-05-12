@@ -180,7 +180,7 @@ class Board:
                     h_possible = {
                         ch for ch in az if dawg.is_word(top + ch + bottom)
                     }
-                    print(f"H cross-check at ({r},{c}): {top}X{bottom} -> {len(h_possible)} possible letters")
+                    # print(f"H cross-check at ({r},{c}): {top}X{bottom} -> {len(h_possible)} possible letters")
                 
                 # Vertical cross‑check (what letters can go here when playing vertically?)
                 # We need to check what horizontal word would be formed
@@ -205,7 +205,7 @@ class Board:
                     v_possible = {
                         ch for ch in az if dawg.is_word(left + ch + right)
                     }
-                    print(f"V cross-check at ({r},{c}): {left}X{right} -> {len(v_possible)} possible letters")
+                    # print(f"V cross-check at ({r},{c}): {left}X{right} -> {len(v_possible)} possible letters")
                 
                 checks[(r, c)] = {H: h_possible, V: v_possible}
         

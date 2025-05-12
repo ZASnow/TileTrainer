@@ -11,9 +11,39 @@ from collections import Counter
 from .board import Board, H, V, TW, DW, TL, DL, TILE_POINTS
 from .dawg import Dawg
 
+RACK_EQUITIES = {
+    '': 25.6,
+    'A': -0.6,
+    'B': -2,
+    'C': 0.9,
+    'D': 0.5,
+    'E': 0.3,
+    'F': -2.2,
+    'G': -2.9,
+    'H': 1.1,
+    'I': -2.1,
+    'J': -1.5,
+    'K': -0.5,
+    'L': -0.2,
+    'M': 0.6,
+    'N': 0.2,
+    'O': -2.5,
+    'P': -0.5,
+    'Q': -6.8,
+    'R': 1.1,
+    'S': 8.0,
+    'T': -0.1,
+    'U': -5.1,
+    'V': -5.5,
+    'W': -3.8,
+    'X': 3.3,
+    'Y': -0.6,
+    'Z': 5.1
+}
+
 
 class Move:
-    __slots__ = ("word", "row", "col", "direction", "score", "tiles")
+    __slots__ = ("word", "row", "col", "direction", "score", "tiles", "rack_equity", "total_score")
 
     def __init__(self, word: str, row: int, col: int, direction: str, score: int, tiles: List[str]):
         self.word = word
@@ -22,17 +52,18 @@ class Move:
         self.direction = direction
         self.score = score
         self.tiles = tiles  # letters newly placed (no coords yet)
+        self.rack_equity = 0.0  # will be set later
+        self.total_score = score  # will be updated with rack equity
 
     def __repr__(self):
-        return f"<Move {self.word} @({self.row},{self.col}) {self.direction} s={self.score}>"
+        return f"<Move {self.word} @({self.row},{self.col}) {self.direction} s={self.score} re={self.rack_equity:.1f} total={self.total_score:.1f}>"
 
 
 # ---------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------
-
 def find_all_moves(board: Board, rack: Counter, dawg: Dawg) -> List[Move]:
-    """Return *all* moves legal with current rack.  Currently: *first cut*"""
+    """Return *all* moves legal with current rack with rack equity considered."""
     moves: List[Move] = []
     cross_checks = board.cross_checks(dawg)
     
@@ -41,36 +72,82 @@ def find_all_moves(board: Board, rack: Counter, dawg: Dawg) -> List[Move]:
     
     for (r, c) in board.anchors():
         # Debug
-        print(f"Checking anchor at ({r}, {c})")
+        # print(f"Checking anchor at ({r}, {c})")
         
-        # simple: require empty square to left if we want left‑part from rack
+        # horizontal moves (left-parts)
         if c > 0 and board.grid[r][c - 1] == ".":
             _gen_left_parts(
                 board, rack, dawg, r, c, [], dawg._root, min(c, 7), moves, cross_checks, H
             )
-        # vertical symmetric case (row above empty)
+        # vertical moves
         if r > 0 and board.grid[r - 1][c] == ".":
             _gen_left_parts(
                 board, rack, dawg, r, c, [], dawg._root, min(r, 7), moves, cross_checks, V
             )
     
-    # Filter out invalid words with an additional explicit dictionary check
+    # Filter out invalid words
     valid_moves = []
     invalid_words = []
     
     for move in moves:
-        # Convert lowercase (blank) letters to uppercase for dictionary check
         word_to_check = move.word.upper()
         if dawg.is_word(word_to_check):
+            # Calculate the remaining rack after this move
+            remaining_rack = rack.copy()
+            
+            # Only consider tiles that weren't already on the board
+            for idx, ch in enumerate(move.word):
+                r = move.row + (idx if move.direction == V else 0)
+                c = move.col + (idx if move.direction == H else 0)
+                
+                # Only subtract from rack if this position was empty
+                if board.grid[r][c] == ".":
+                    # For blank tiles (lowercase in the word)
+                    if ch.islower():
+                        remaining_rack[""] -= 1
+                    else:
+                        remaining_rack[ch] -= 1
+            
+            # Calculate rack equity for remaining tiles
+            rack_equity = calculate_rack_equity(remaining_rack)
+            
+            # Add equity to the move object
+            move.rack_equity = rack_equity
+            move.total_score = move.score + rack_equity
+            
             valid_moves.append(move)
-        else:
-            invalid_words.append(move.word)
     
     if invalid_words:
-        print(f"Filtered out {len(invalid_words)} invalid words: {invalid_words[:10]}")
+        # print(f"Filtered out {len(invalid_words)} invalid words: {invalid_words[:10]}")
+        pass
     
-    valid_moves.sort(key=lambda m: m.score, reverse=True)
+    # Sort by total score (move score + rack equity)
+    valid_moves.sort(key=lambda m: m.total_score, reverse=True)
     return valid_moves
+
+
+def calculate_rack_equity(remaining_rack: Counter) -> float:
+    """
+    Calculate the equity value of the remaining rack.
+    Penalizes duplicate letters with -4 points for each duplicated letter.
+    
+    Args:
+        remaining_rack: Counter of remaining tiles after a move
+    
+    Returns:
+        float: The equity value of the remaining rack
+    """
+    # Base equity from letter values
+    equity = sum(RACK_EQUITIES.get(tile, 0) * count for tile, count in remaining_rack.items())
+    
+    # Apply penalty for duplicate letters (-4 for each duplicate)
+    for tile, count in remaining_rack.items():
+        # Skip blank tiles (represented by empty string)
+        if tile and count > 1:
+            # -4 points for each duplicate (beyond the first occurrence)
+            equity -= 4 * (count - 1)
+    
+    return equity
 
 
 # ---------------------------------------------------------------------
@@ -238,100 +315,6 @@ def _score_move(board: Board, r0: int, c0: int, direction: str, word: str) -> in
     
     return total
 
-def _get_full_word(board, r0, c0, direction, placed_word):
-    """Find the full word including existing tiles it connects to."""
-    SIZE = 15
-    
-    # First place the new tiles temporarily on a copy of the board
-    from copy import deepcopy
-    temp_board = deepcopy(board)
-    
-    for idx, ch in enumerate(placed_word):
-        r = r0 + (idx if direction == V else 0)
-        c = c0 + (idx if direction == H else 0)
-        if temp_board.grid[r][c] == ".":
-            temp_board.grid[r][c] = ch.upper()
-    
-    # Then get the full word
-    if direction == "H":
-        # Find the start of the word
-        start_c = c0
-        while start_c > 0 and temp_board.grid[r0][start_c-1] != ".":
-            start_c -= 1
-        
-        # Build the word from left to right
-        word = ""
-        cc = start_c
-        while cc < SIZE and temp_board.grid[r0][cc] != ".":
-            word += temp_board.grid[r0][cc]
-            cc += 1
-        
-        return word, r0, start_c
-    
-    else:  # direction == "V"
-        # Find the start of the word
-        start_r = r0
-        while start_r > 0 and temp_board.grid[start_r-1][c0] != ".":
-            start_r -= 1
-        
-        # Build the word from top to bottom
-        word = ""
-        rr = start_r
-        while rr < SIZE and temp_board.grid[rr][c0] != ".":
-            word += temp_board.grid[rr][c0]
-            rr += 1
-        
-        return word, start_r, c0
-
-def _get_cross_word(board, r, c, main_direction):
-    """
-    Get the cross-word at a given position.
-    Returns (word, start_row, start_col) or None if no cross-word.
-    """
-    SIZE = 15
-    cross_direction = "V" if main_direction == "H" else "H"
-    
-    if cross_direction == "V":
-        # Look up
-        top = ""
-        rr = r - 1
-        while rr >= 0 and board.grid[rr][c] != ".":
-            top = board.grid[rr][c] + top
-            rr -= 1
-        
-        # Look down
-        bottom = ""
-        rr = r + 1
-        while rr < SIZE and board.grid[rr][c] != ".":
-            bottom += board.grid[rr][c]
-            rr += 1
-        
-        # If there's a vertical cross-word
-        if top or bottom:
-            start_r = r - len(top)
-            return (top + board.grid[r][c] + bottom, start_r, c)
-    
-    else:  # cross_direction == "H"
-        # Look left
-        left = ""
-        cc = c - 1
-        while cc >= 0 and board.grid[r][cc] != ".":
-            left = board.grid[r][cc] + left
-            cc -= 1
-        
-        # Look right
-        right = ""
-        cc = c + 1
-        while cc < SIZE and board.grid[r][cc] != ".":
-            right += board.grid[r][cc]
-            cc += 1
-        
-        # If there's a horizontal cross-word
-        if left or right:
-            start_c = c - len(left)
-            return (left + board.grid[r][c] + right, r, start_c)
-    
-    return None
 
 def _gen_left_parts(
     board: Board,

@@ -7,12 +7,13 @@ from __future__ import annotations
 from typing import List, Dict, Tuple, Set
 import sys
 import json
+from .board import TW, DW, TL, DL
 
 class DebugUtils:
     @staticmethod
     def print_board(board, highlight_points=None):
         """
-        Print the board with optional highlighting of specific points.
+        Print the board with elegantly separated cells and clear bonus markings.
         
         Args:
             board: The Board object
@@ -23,24 +24,130 @@ class DebugUtils:
         
         highlight_set = set(highlight_points)
         
-        print("   " + " ".join(f"{i:2d}" for i in range(15)))
-        print("  +" + "-" * 45 + "+")
+        # Terminal colors for better visibility
+        RESET = "\033[0m"
+        BOLD = "\033[1m"
+        RED = "\033[91m"
+        BLUE = "\033[94m"
+        MAGENTA = "\033[95m"
+        CYAN = "\033[96m"
+        BG_YELLOW = "\033[43m"
+        
+        # Print column headers
+        print("\n     " + "   ".join(f"{chr(ord('a') + i)}" for i in range(15)))
+        
+        # Print top border
+        print("   ┌" + "───┬" * 14 + "───┐")
         
         for r in range(15):
-            print(f"{r:2d}|", end=" ")
+            # Print row with cell content
+            row_content = f"{r+1:2} │"
             for c in range(15):
                 cell = board.grid[r][c]
-                if cell == ".":
-                    cell = " "
+                pos = (r, c)
                 
-                if (r, c) in highlight_set:
-                    print(f"[{cell}]", end="")
+                # If cell is empty, show special space marker
+                if cell == ".":
+                    if pos in TW:
+                        cell_display = RED + "TW " + RESET
+                    elif pos in DW:
+                        cell_display = MAGENTA + "DW " + RESET
+                    elif pos in TL:
+                        cell_display = BLUE + "TL " + RESET
+                    elif pos in DL:
+                        cell_display = CYAN + "DL " + RESET
+                    else:
+                        cell_display = "   "
                 else:
-                    print(f" {cell} ", end="")
-            print("|")
+                    # For non-empty cells, show the letter
+                    if pos in highlight_set:
+                        cell_display = BG_YELLOW + BOLD + " " + cell + " " + RESET
+                    else:
+                        cell_display = " " + BOLD + cell + " "
+                
+                row_content += cell_display + "│"
+            
+            print(row_content)
+            
+            # Print row separator (except after the last row)
+            if r < 14:
+                print("   ├" + "───┼" * 14 + "───┤")
         
-        print("  +" + "-" * 45 + "+")
-
+        # Print bottom border
+        print("   └" + "───┴" * 14 + "───┘")
+        
+        # Add a legend for special spaces
+        print("\nLegend:")
+        print(f"{RED}TW{RESET} = Triple Word   {MAGENTA}DW{RESET} = Double Word")
+        print(f"{BLUE}TL{RESET} = Triple Letter {CYAN}DL{RESET} = Double Letter\n")
+    
+    @staticmethod
+    def print_compact_board(board, highlight_points=None):
+        """
+        Print a more compact version of the board with special spaces.
+        
+        Args:
+            board: The Board object
+            highlight_points: List of (row, col) tuples to highlight
+        """
+        if highlight_points is None:
+            highlight_points = []
+        
+        highlight_set = set(highlight_points)
+        
+        # Terminal colors for better visibility
+        RESET = "\033[0m"
+        BOLD = "\033[1m"
+        RED = "\033[91m"
+        BLUE = "\033[94m"
+        MAGENTA = "\033[95m"
+        CYAN = "\033[96m"
+        BG_YELLOW = "\033[43m"
+        
+        # Print column headers
+        print("   ", end="")
+        for i in range(15):               # 15 → a-o
+            ch = chr(ord('a') + i)        # 0→'a', 1→'b', …
+            print(ch, end=" ")
+        print()
+        print("  +" + "-" * 30 + "+")
+        
+        for r in range(15):
+            row = f"{r:2}|"
+            for c in range(15):
+                cell = board.grid[r][c]
+                pos = (r, c)
+                
+                # If cell is empty, show special space marker
+                if cell == ".":
+                    if pos in TW:
+                        cell_display = RED + "#" + RESET
+                    elif pos in DW:
+                        cell_display = MAGENTA + "%" + RESET
+                    elif pos in TL:
+                        cell_display = BLUE + "=" + RESET
+                    elif pos in DL:
+                        cell_display = CYAN + "+" + RESET
+                    else:
+                        cell_display = " "
+                else:
+                    # For non-empty cells, show the letter
+                    if pos in highlight_set:
+                        cell_display = BG_YELLOW + BOLD + cell + RESET
+                    else:
+                        cell_display = BOLD + cell + RESET
+                
+                row += cell_display + " "
+            
+            row += "|"
+            print(row)
+        
+        print("  +" + "-" * 30 + "+")
+        
+        # Add a legend for special spaces
+        print("\nLegend:")
+        print(f"{RED}#{RESET}=TW {MAGENTA}%{RESET}=DW {BLUE}={RESET}=TL {CYAN}+{RESET}=DL")
+        
     @staticmethod
     def check_extended_word(board, move, dawg):
         """
